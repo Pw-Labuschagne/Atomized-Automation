@@ -1,27 +1,35 @@
 CFLAGS = -pedantic -Wextra -Werror
 
-all: A_A_Run clean
+all: A-A clean
 
-A_A_Run: A_A.o Texture_Manager.o
+A-A: main.o Atomized_Automation_game.o Player.o Texture_Manager.o Map.o
 	@echo "Compiling final run file"
-	@gcc $(CFLAGS) A_A.o Texture_Manager.o -w -lSDL2 -lSDL2_image -o A_A_Run
-	@chmod +X A_A_Run
+	@g++ $(CFLAGS) -g Atomized_Automation_game.o Map.o Player.o Texture_Manager.o  main.o -w -lSDL2 -lSDL2_image -o A-A
+	@chmod +X A-A
 
-A_A.o: A_A.c
+main.o: main.cpp
 	@echo "Compliling main file"
-	@gcc $(CLFAGS) -c A_A.c
+	@g++ $(CFLAGS) -c main.cpp
 
-A_A_player.o: A_A_player.c
+Atomized_Automation_game.o: Atomized_Automation_game.cpp
+	@echo "Compliling game file"
+	@g++ $(CFLAGS) -c Atomized_Automation_game.cpp
+
+Map.o: Map.cpp
+	@echo "Compiling map config"
+	@g++ $(CFLAGS) -c Map.cpp
+
+Player.o: Player.cpp
 	@echo "Compiling player file"
-	@gcc $(CFLAGS) -c A_A_player.c
+	@g++ $(CFLAGS) -c Player.cpp
 
-A_A_enemies.o: A_A_enemies.c
+Enemies.o: Enemies.cpp
 	@echo "Compiling enemies file"
-	@gcc $(CFLAGS) -c A_A_enemies.c
+	@g++ $(CFLAGS) -c Enemies.cpp
 
-Texture_Manager.o: Texture_Manager.c
+Texture_Manager.o: Texture_Manager.cpp
 	@echo "Compiling texture manager"
-	gcc $(CFLAGS) -c Texture_Manager.c
+	g++ $(CFLAGS) -c Texture_Manager.cpp
 
 clean: 
 	@echo "Cleaning up files"
